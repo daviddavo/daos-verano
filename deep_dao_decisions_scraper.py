@@ -2,7 +2,11 @@ import requests
 import json
 import pandas as pd
 
-def get_all_dao_basic_info():
+def get_all_dao_basic_info() -> pd.DataFrame:
+    """
+    Gets the basic info of all DAOs
+    :return: a dataframe with the basic info of all DAOs
+    """
     headers = {
         'authority': 'deepdao-server.deepdao.io',
         'accept': 'application/json, text/plain, */*',
@@ -20,7 +24,7 @@ def get_all_dao_basic_info():
     }
 
     params = {
-        'limit': '2500',
+        'limit': '3000',
         'offset': '0',
         'orderBy': 'totalNumProposals',
         'order': 'DESC',
@@ -32,7 +36,12 @@ def get_all_dao_basic_info():
     return pd.DataFrame(data['daosSummary'])
 
 
-def get_decisions(organization_id):
+def get_decision_platforms(organization_id) -> pd.DataFrame:
+    """
+    Gets the decision platforms of a DAO
+    :param organization_id: the id of the DAO
+    :return: a dataframe with the decision platforms
+    """
     headers = {
         'authority': 'deepdao-server.deepdao.io',
         'accept': 'application/json, text/plain, */*',
@@ -69,44 +78,45 @@ def make_current_timestamp_folder() -> str:
     os.mkdir(f'./{timestamp}')
     return str(timestamp)
 
-MAX_DELAY = 5
-COUNT = 7
+if __name__ == '__main__':
+    MAX_DELAY = 5
+    COUNT = 7 # deep dao currently has ~2300 DAOs
 
-folder_name = make_current_timestamp_folder()
-df = get_all_dao_basic_info()[:COUNT]
-df.to_csv(f'./{folder_name}/daos.csv')
+    folder_name = make_current_timestamp_folder()
+    df = get_all_dao_basic_info()[:COUNT]
+    df.to_csv(f'./{folder_name}/daos.csv')
 
-"""
-organizationId          object
-uniqueKey               object
-daoName                 object
-title                   object
-logo                    object
-totalNumMembers        float64
-totalNumProposals      float64
-totalNumVotes          float64
-activeMembers            int64
-totalValueUSD          float64
-change24hPercentage    float64
-mainTreasuryAddress     object
-mainTreasuryTitle       object
-mainTreasuryAum        float64
-chainLogo               object
-createdAt               object
-categories              object
-aum                     object
-dtype: object
-"""
+    """
+    organizationId          object
+    uniqueKey               object
+    daoName                 object
+    title                   object
+    logo                    object
+    totalNumMembers        float64
+    totalNumProposals      float64
+    totalNumVotes          float64
+    activeMembers            int64
+    totalValueUSD          float64
+    change24hPercentage    float64
+    mainTreasuryAddress     object
+    mainTreasuryTitle       object
+    mainTreasuryAum        float64
+    chainLogo               object
+    createdAt               object
+    categories              object
+    aum                     object
+    dtype: object
+    """
 
-for i in range(len(df)):
-    oid = df.iloc[i].organizationId
-    decisions = get_decisions(oid)
-    decisions.to_csv(f'./{folder_name}/{oid}.csv')
+    for i in range(len(df)):
+        oid = df.iloc[i].organizationId
+        decision_platforms = get_decision_platforms(oid)
+        decision_platforms.to_csv(f'./{folder_name}/{oid}.csv')
 
-    # random sleep
-    import time
-    import random
-    delay = random.randint(1, MAX_DELAY)
-    print(f'Finished {i} of {len(df)}')
-    print(f'Sleeping {delay} seconds')
-    time.sleep(delay)
+        # random sleep
+        import time
+        import random
+        delay = random.randint(1, MAX_DELAY)
+        print(f'Finished {i} of {len(df)}')
+        print(f'Sleeping {delay} seconds')
+        time.sleep(delay)
