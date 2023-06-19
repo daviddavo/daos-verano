@@ -88,6 +88,10 @@ def make_current_timestamp_folder() -> str:
 
 if __name__ == '__main__':
     folder_name = RECOVERY_DIR_NAME if RECOVERY_DIR_NAME else make_current_timestamp_folder()
+
+    print(f'Folder name: {folder_name}')
+    print(f'Recovery mode? {RECOVERY_DIR_NAME is not None}')
+
     df = get_all_organizations_basic_info()[:COUNT]
     df.to_csv(f'./{folder_name}/organizations.csv')
 
