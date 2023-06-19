@@ -1,8 +1,15 @@
 import requests
 import json
+import os
 import pandas as pd
 
-def get_all_dao_basic_info() -> pd.DataFrame:
+# Use this to pick up a partially-completed scraping
+RECOVERY_DIR_NAME = None
+MIN_DELAY = 1
+MAX_DELAY = 10
+COUNT = 2    # deep dao currently has ~2300 DAOs
+
+def get_all_organizations_basic_info() -> pd.DataFrame:
     """
     Gets the basic info of all DAOs
     :return: a dataframe with the basic info of all DAOs
@@ -78,13 +85,11 @@ def make_current_timestamp_folder() -> str:
     os.mkdir(f'./{timestamp}')
     return str(timestamp)
 
-if __name__ == '__main__':
-    MAX_DELAY = 5
-    COUNT = 7 # deep dao currently has ~2300 DAOs
 
-    folder_name = make_current_timestamp_folder()
-    df = get_all_dao_basic_info()[:COUNT]
-    df.to_csv(f'./{folder_name}/daos.csv')
+if __name__ == '__main__':
+    folder_name = RECOVERY_DIR_NAME if RECOVERY_DIR_NAME else make_current_timestamp_folder()
+    df = get_all_organizations_basic_info()[:COUNT]
+    df.to_csv(f'./{folder_name}/organizations.csv')
 
     """
     organizationId          object
@@ -110,13 +115,17 @@ if __name__ == '__main__':
 
     for i in range(len(df)):
         oid = df.iloc[i].organizationId
-        decision_platforms = get_decision_platforms(oid)
-        decision_platforms.to_csv(f'./{folder_name}/{oid}.csv')
+        if os.path.exists(f'./{folder_name}/{oid}.csv'):
+            print(f'Already exists {oid}.csv')
+            continue
+        else:
+            decision_platforms = get_decision_platforms(oid)
+            decision_platforms.to_csv(f'./{folder_name}/{oid}.csv')
 
         # random sleep
         import time
         import random
-        delay = random.randint(1, MAX_DELAY)
-        print(f'Finished {i} of {len(df)}')
+        delay = random.randint(MIN_DELAY, MAX_DELAY)
+        print(f'Finished {i+1} of {len(df)}')
         print(f'Sleeping {delay} seconds')
         time.sleep(delay)
