@@ -4,5 +4,5 @@ WORKDIR /app
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY ./deep_dao_decisions_scraper.py .
-CMD ["python", "deepdao_daos_scraper.py"]
+COPY ./01_deepdao_daos_scraper.py .
+CMD ["python", "01_deepdao_daos_scraper.py"]
