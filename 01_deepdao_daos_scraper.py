@@ -91,7 +91,7 @@ def make_current_timestamp_folder() -> str:
     import os
     now = datetime.datetime.now()
     epoch = datetime.datetime.utcfromtimestamp(0)
-    timestamp = int((now - epoch).total_seconds() * 1000.0)
+    timestamp = int((now - epoch).total_seconds())
     os.mkdir(f'./{timestamp}')
     return str(timestamp)
 
