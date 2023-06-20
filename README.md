@@ -8,7 +8,7 @@
 
 Build:
 ```
-docker build -t ddao .
+docker build -t ddao . -f decisions.Dockerfile
 ```
 
 Run:
