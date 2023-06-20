@@ -2,9 +2,9 @@
 
 Data pipeline:
 
-1. `deepdao_daos_scraper.py` - download 
-2. `2023-06-19 - Deep DAO Combination and Cleaning.ipynb`
-3. `2023-06-19 - DAOs with Platform Links Analysis.ipynb`
+1. `deepdao_daos_scraper.py` - download daos information from deepdao
+2. `2023-06-19 - Deep DAO Combination and Cleaning.ipynb` - clean this downloaded data
+3. `2023-06-19 - DAOs with Platform Links Analysis.ipynb` - initial analysis of the downloaded data
 
 ## Docker
 
