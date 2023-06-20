@@ -3,6 +3,17 @@ import json
 import os
 import pandas as pd
 
+"""
+Two entities:
+1. Organizations: there are the top-level entities on the deepdao homepage
+2. DAOs: these are the "sub-entities" of organizations, and these link out to Snapshot/Aragon/etc.
+
+Organizations and DAOs have a 1-to-many relationship. Each organization can have multiple DAOs, but each DAO
+belongs to only one organization. **
+
+** I think ... It may be m2m.
+"""
+
 # Use this to pick up a partially-completed scraping
 RECOVERY_DIR_NAME = None
 MIN_DELAY = 1
@@ -43,7 +54,7 @@ def get_all_organizations_basic_info() -> pd.DataFrame:
     return pd.DataFrame(data['daosSummary'])
 
 
-def get_decision_platforms(organization_id) -> pd.DataFrame:
+def get_dao_platforms(organization_id) -> json:
     """
     Gets the decision platforms of a DAO
     :param organization_id: the id of the DAO
@@ -68,8 +79,7 @@ def get_decision_platforms(organization_id) -> pd.DataFrame:
         f'https://deepdao-server.deepdao.io/organization/ksdf3ksa-937slj3/{organization_id}/dao',
         headers=headers,
     )
-    data = json.loads(response.content)
-    return pd.DataFrame(data['data'])
+    return json.loads(response.content)
 
 
 def make_current_timestamp_folder() -> str:
@@ -123,8 +133,10 @@ if __name__ == '__main__':
             print(f'Already exists {oid}.csv')
             continue
         else:
-            decision_platforms = get_decision_platforms(oid)
-            decision_platforms.to_csv(f'./{folder_name}/{oid}.csv')
+            dao_platforms = get_dao_platforms(oid)
+            # save json to file
+            with open(f'./{folder_name}/{oid}.json', 'w') as f:
+                json.dump(dao_platforms, f)
 
         # random sleep
         import time

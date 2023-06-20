@@ -1,6 +1,8 @@
 # DAOs Verano
 
-1. `deep_dao_decisions_scraper.py`
+Data pipeline:
+
+1. `deepdao_daos_scraper.py` - download 
 2. `2023-06-19 - Deep DAO Combination and Cleaning.ipynb`
 3. `2023-06-19 - DAOs with Platform Links Analysis.ipynb`
 
