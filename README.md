@@ -1,12 +1,10 @@
 # DAOs Verano
 
-Data pipeline:
+## 01 DeepDAO DAOs Collection
 
-1. `01_deepdao_daos_scraper.py` - download daos information from deepdao
-2. `2023-06-19 - Deep DAO Combination and Cleaning.ipynb` - clean this downloaded data
-3. `2023-06-19 - DAOs with Platform Links Analysis.ipynb` - initial analysis of the downloaded data
+First we collect the "organizations" on DeepDAO and obtain all of the "DAOs" or "platforms" for each of them.
 
-## Docker
+### Docker
 
 Build:
 ```
@@ -28,3 +26,18 @@ docker create --name dummy ddao
 docker cp dummy:/app/9999999999999 ./dockerout
 docker rm -f dummy
 ```
+
+## 02 Snapshot Proposals Collection
+
+Here we consider all of the DAOs that are on Snapshot from the previous step and collect all of the
+proposals _from the past year_ from each of them.
+
+This step does not need to be run on a server. (n ~= 200)
+
+## 03 Snapshot Votes Collection
+
+Here we collect the voting records for each of the proposals found above.
+
+This should be run on a server, though TODO: is not yet dockerized.
+
+## TKTKTK
