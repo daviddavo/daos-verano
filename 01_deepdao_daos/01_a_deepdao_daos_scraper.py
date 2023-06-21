@@ -18,7 +18,7 @@ belongs to only one organization. **
 RECOVERY_DIR_NAME = None
 MIN_DELAY = 1
 MAX_DELAY = 10
-COUNT = 2    # deep dao currently has ~2300 DAOs
+COUNT = 9    # deep dao currently has ~2300 DAOs
 
 def get_all_organizations_basic_info() -> pd.DataFrame:
     """
@@ -133,14 +133,14 @@ if __name__ == '__main__':
     """
 
     for i in range(len(df)):
-        oid = df.iloc[i].organizationId
-        if os.path.exists(f'./{folder_name}/{oid}.csv'):
-            print(f'Already exists {oid}.csv')
+        organization_id = df.iloc[i].name
+        if os.path.exists(f'./{folder_name}/{organization_id}.csv'):
+            print(f'Already exists {organization_id}.csv')
             continue
         else:
-            dao_platforms = get_dao_platforms(oid)
+            dao_platforms = get_dao_platforms(organization_id)
             # save json to file
-            with open(f'./{folder_name}/{oid}.json', 'w') as f:
+            with open(f'./{folder_name}/{organization_id}.json', 'w') as f:
                 json.dump(dao_platforms, f)
 
         # random sleep
