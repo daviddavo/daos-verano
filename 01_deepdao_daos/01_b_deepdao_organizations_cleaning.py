@@ -22,6 +22,9 @@ df = pd.concat([df.drop(['data'], axis=1), df['data'].apply(pd.Series)], axis=1)
 # sort by by organizationId and daoId
 df = df.sort_values(by=['organizationId', 'daoId'])
 
+# rename daoId to deepdaoDaoId
+df = df.rename(columns={'daoId': 'deepdaoDaoId'})
+
 # rename platform to platformId
 df = df.rename(columns={'platform': 'platformId'})
 
@@ -29,10 +32,10 @@ df = df.rename(columns={'platform': 'platformId'})
 df = df.drop(columns=['logo'])
 
 # reorder columns
-df = df[['name', 'platformTitle', 'platformId', 'website',
+df = df[['deepdaoDaoId', 'name', 'platformTitle', 'platformId', 'website',
        'mostRecentProposalDate', 'aum']]
 
 # save to csv based on the directory name
-df.to_csv(f'{DIR_NAME}_deepdao_platforms.csv')
+df.to_csv(f'{DIR_NAME}_deepdao_platforms.csv', index=False)
 
 print(df.shape)
