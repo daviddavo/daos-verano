@@ -102,8 +102,13 @@ if __name__ == '__main__':
     print(f'Folder name: {folder_name}')
     print(f'Recovery mode? {RECOVERY_DIR_NAME is not None}')
 
-    df = get_all_organizations_basic_info()[:COUNT]
-    df.to_csv(f'./{folder_name}/organizations.csv')
+    df = get_all_organizations_basic_info()
+    # make organizationId the index
+    df = df.set_index('organizationId')
+    df.to_csv(f'./{folder_name}/deep_dao_organizations.csv')
+    # quit(99)
+
+    df = df[:COUNT]
 
     """
     organizationId          object
