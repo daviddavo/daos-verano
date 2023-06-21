@@ -41,3 +41,6 @@ Here we collect the voting records for each of the proposals found above.
 This should be run on a server, though TODO: is not yet dockerized.
 
 ## TKTKTK
+
+[Dao Analyzer Scripts](https://github.com/Grasia/dao-analyzer/blob/master/cache_scripts/README.md)
+[Kaggle](https://www.kaggle.com/datasets/daviddavo/dao-analyzer)
