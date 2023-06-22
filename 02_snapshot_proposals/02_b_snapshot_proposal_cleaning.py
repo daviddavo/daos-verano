@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-DIR_NAME = '1687359310'
+DIR_NAME = '1687429408'
 
 directory_list = os.listdir(DIR_NAME)
 directory_list = [x for x in directory_list if x.endswith('.csv')]
@@ -21,11 +21,12 @@ df['start'] = pd.to_datetime(df['start'], unit='s')
 df['end'] = pd.to_datetime(df['end'], unit='s')
 df['scores_updated'] = pd.to_datetime(df['scores_updated'], unit='s')
 
-# index id, then order by deepdao dao ids
-df = df.set_index('id')
-df = df.sort_values(by=['deepdaoDaoId'])
+# rename id to snapshotId
+df = df.rename(columns={'id': 'snapshotProposalId', 'snapshotId': 'snapshotSpaceId'})
+
+df = df.sort_values(by=['snapshotSpaceId', 'deepdaoDaoId'])
 
 # save as snapshot_platforms with the datetime as a prefix
-df.to_csv(f'{DIR_NAME}_snapshot_dao_proposals.csv')
+df.to_csv(f'{DIR_NAME}_snapshot_proposals.csv', index=False)
 
 print(df.shape)
