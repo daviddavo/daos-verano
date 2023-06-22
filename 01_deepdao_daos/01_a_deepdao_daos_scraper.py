@@ -15,10 +15,13 @@ belongs to only one organization. **
 """
 
 # Use this to pick up a partially-completed scraping
-RECOVERY_DIR_NAME = None
-MIN_DELAY = 1
+# RECOVERY_DIR_NAME = None
+RECOVERY_DIR_NAME = '1687365380'
+RECOVERY_MODE = RECOVERY_DIR_NAME is not None
+
+MIN_DELAY = 2
 MAX_DELAY = 10
-COUNT = 9    # deep dao currently has ~2300 DAOs
+COUNT = 50    # deep dao currently has ~2300 DAOs
 
 def get_all_organizations_basic_info() -> pd.DataFrame:
     """
@@ -97,10 +100,10 @@ def make_current_timestamp_folder() -> str:
 
 
 if __name__ == '__main__':
-    folder_name = RECOVERY_DIR_NAME if RECOVERY_DIR_NAME else make_current_timestamp_folder()
+    folder_name = RECOVERY_DIR_NAME if RECOVERY_MODE else make_current_timestamp_folder()
 
     print(f'Folder name: {folder_name}')
-    print(f'Recovery mode? {RECOVERY_DIR_NAME is not None}')
+    print(f'Recovery mode? {RECOVERY_MODE}')
 
     df = get_all_organizations_basic_info()
     # make organizationId the index
@@ -134,8 +137,8 @@ if __name__ == '__main__':
 
     for i in range(len(df)):
         organization_id = df.iloc[i].name
-        if os.path.exists(f'./{folder_name}/{organization_id}.csv'):
-            print(f'Already exists {organization_id}.csv')
+        if os.path.exists(f'./{folder_name}/{organization_id}.json'):
+            print(f'Already exists {organization_id}.json')
             continue
         else:
             dao_platforms = get_dao_platforms(organization_id)
