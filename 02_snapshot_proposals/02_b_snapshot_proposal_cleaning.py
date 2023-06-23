@@ -1,15 +1,15 @@
 import os
 import pandas as pd
 
-DIR_NAME = '1687429408'
+DIR_NAME = '1687517391'
 
-directory_list = os.listdir(DIR_NAME)
-directory_list = [x for x in directory_list if x.endswith('.csv')]
-print(len(directory_list), 'directories found')
+file_list = os.listdir(DIR_NAME)
+file_list = [x for x in file_list if x.endswith('.csv')]
+print(len(file_list), 'files found')
 
 # read all csv files in the directory and compile them into one dataframe with an additional column for the organization name, from the filename
 dfs = []
-for file in directory_list:
+for file in file_list:
     dfs.append(pd.read_csv(f'{DIR_NAME}/{file}').assign(deepdaoDaoId=file.replace('.csv', '')))
 
 # combine all dataframes into one
