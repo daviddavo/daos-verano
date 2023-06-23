@@ -8,7 +8,7 @@ First we collect the "organizations" on DeepDAO and obtain all of the "DAOs" or 
 
 Build:
 ```
-docker build -t ddao . -f decisions.Dockerfile
+docker build -t ddao . -f daos.Dockerfile
 ```
 
 Run:

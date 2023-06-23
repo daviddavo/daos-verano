@@ -15,13 +15,13 @@ belongs to only one organization. **
 """
 
 # Use this to pick up a partially-completed scraping
-# RECOVERY_DIR_NAME = None
-RECOVERY_DIR_NAME = '1687365380'
+RECOVERY_DIR_NAME = None
+# RECOVERY_DIR_NAME = '1687365380'
 RECOVERY_MODE = RECOVERY_DIR_NAME is not None
 
-MIN_DELAY = 2
-MAX_DELAY = 10
-COUNT = 50    # deep dao currently has ~2300 DAOs
+MIN_DELAY = 10
+MAX_DELAY = 30
+COUNT = 2500    # deep dao currently has ~2300 DAOs
 
 def get_all_organizations_basic_info() -> pd.DataFrame:
     """
