@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-DIR_NAME = '1687365380'
+DIR_NAME = '1687523727'
 ignore_files = ['deep_dao_organizations.csv']
 
 directory_list = os.listdir(DIR_NAME)
@@ -40,5 +40,8 @@ df = df[['deepdaoDaoId', 'deepdaoOrganizationId', 'name', 'platformTitle', 'plat
 
 # save to csv based on the directory name
 df.to_csv(f'{DIR_NAME}_deepdao_daos.csv', index=False)
+
+# print the value countd for platformTitle
+print(df['platformTitle'].value_counts())
 
 print(df.shape)
