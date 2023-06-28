@@ -10,7 +10,7 @@ now = datetime.datetime.now()
 now = int(now.timestamp())
 
 # OUTPUT_PATH = f'tally_scraping_{now}'
-OUTPUT_PATH = 'tally_scraping_1687958657'
+OUTPUT_PATH = 'tally_scraping_1687966692'
 BATCH_SIZE = 6
 
 # make if not exists
@@ -46,7 +46,6 @@ query = '''
             support
         }
         governance {
-            # TODO: use slug instead of id
             id
         }
     }
@@ -54,7 +53,16 @@ query = '''
 '''
 
 
-def get_proposals_with_votes(limit, offset):
+def get_proposals_with_votes(limit, offset, chain_id, governance_ids):
+    """
+    get proposals with votes
+
+    :param limit: int
+    :param offset: int
+    :param chain_id: str
+    :param governance_ids: list of str
+    :return: None
+    """
     json_data = {
         'query': query,
         'variables': {
@@ -66,32 +74,21 @@ def get_proposals_with_votes(limit, offset):
                 'field': 'START_BLOCK',
                 'order': 'DESC',
             },
-            'chainId': 'eip155:1',
-            # 'chainId': 'eip155:10',
-            'governanceIds': [
-                "eip155:1:0x637deEED4e4deb1D222650bD4B64192abf002c00", # rari, on eip155:1
-                'eip155:1:0x8a994C6F55Be1fD2B4d0dc3B8f8F7D4E3a2dA8F1', # ampleforth, on eip155:1
-                "eip155:1:0xDbD27635A534A3d3169Ef0498beB56Fb9c937489", # gitcoin, on eip155:1
-                "eip155:1:0x3D5Fc645320be0A085A32885F078F7121e5E5375", # idle, on eip155:1
-                "eip155:1:0x95129751769f99CC39824a0793eF4933DD8Bb74B", # indexed, on eip155:1
-                "eip155:1:0xB3a87172F555ae2a2AB79Be60B336D2F7D0187f0", # pooltogether, on eip155:1
-                "eip155:1:0x690e775361AD66D1c4A25d89da9fCd639F5198eD", # radicle, on eip155:1
-            ],
+            'chainId': chain_id,
+            'governanceIds': governance_ids,
             'votersPagination': {}, # none
             'includeVotes': True,
         },
     }
 
     response = requests.post('https://api.tally.xyz/query', headers=headers, json=json_data)
-
     df = pd.DataFrame(response.json()['data']['proposals'])
     print('  before date filtering', df.shape)
 
     # ======= keep only proposals for our time period =======
 
     if df.shape[0] == 0:
-        print('done, no results left')
-        quit(99)
+        return 'DONE'
 
     # map block.timestamp to proposalCreatedAt column
     df['proposalCreatedAt'] = df['block'].apply(lambda x: x['timestamp'])
@@ -116,6 +113,8 @@ def get_proposals_with_votes(limit, offset):
     print('  after date filtering', df.shape)
 
     if df.shape[0] == 0:
+        # save empty csv
+        df.to_csv(f'{OUTPUT_PATH}/{chain_id}/proposals_with_votes_{offset}_{offset+limit}.csv', index=False)
         print('  no results after filtering, exiting method')
         return None
 
@@ -133,6 +132,12 @@ def get_proposals_with_votes(limit, offset):
     # expand votes
     df = pd.concat([df.drop(['votes'], axis=1), df['votes'].apply(pd.Series)], axis=1)
 
+    if 'voter' not in df.columns:
+        # save empty csv
+        df.to_csv(f'{OUTPUT_PATH}/{chain_id}/proposals_with_votes_{offset}_{offset+limit}.csv', index=False)
+        print('  no votes, exiting method')
+        return None
+
     # add voter
     df['voter'] = df['voter'].apply(lambda x: x['address'] if not pd.isnull(x) else None)
     # add createdAt from votes.block.timestamp
@@ -148,16 +153,38 @@ def get_proposals_with_votes(limit, offset):
     print('  final shape', df.shape)
 
     # ======= save to csv =======
-    print(f'getting {i} to {i+BATCH_SIZE}')
-    df.to_csv(f'{OUTPUT_PATH}/proposals_with_votes_{offset}_{offset+limit}.csv', index=False)
+    df.to_csv(f'{OUTPUT_PATH}/{chain_id}/proposals_with_votes_{offset}_{offset+limit}.csv', index=False)
 
-# run endlessly in batches
-print('using output path', OUTPUT_PATH)
-for i in range(0, 9999999999, BATCH_SIZE):
-    # # if file already exists, skip
-    filepath = f'{OUTPUT_PATH}/proposals_with_votes_{i}_{i+BATCH_SIZE}.csv'
-    print(f'getting {i} to {i+BATCH_SIZE}')
-    if os.path.exists(filepath):
-        print(f'  {i} to {i+BATCH_SIZE} already exists, skipping')
-        continue
-    get_proposals_with_votes(BATCH_SIZE, i)
+# read organizations.csv as tally_orgs_df
+tally_orgs_df = pd.read_csv('organizations.csv')
+# group by chainId
+tally_orgs_df = tally_orgs_df.groupby('chainId').agg(list)
+# save to a dict with values as lists
+tally_orgs_dict = tally_orgs_df.to_dict()['id']
+
+
+def get_proposals_for_chain(chain_id):
+    print('running chain', chain_id, 'with output path', OUTPUT_PATH)
+    governance_ids = tally_orgs_dict[chain_id]
+
+    # run endlessly in batches
+    for i in range(0, 9999999999, BATCH_SIZE):
+        # # if file already exists, skip
+        filepath = f'{OUTPUT_PATH}/{chain_id}/proposals_with_votes_{i}_{i+BATCH_SIZE}.csv'
+        print(f'getting {i} to {i+BATCH_SIZE}')
+        if os.path.exists(filepath):
+            print(f'  {i} to {i+BATCH_SIZE} already exists, skipping')
+            continue
+        if get_proposals_with_votes(BATCH_SIZE, i, chain_id, governance_ids) == 'DONE':
+            print('==== DONE W CHAIN', chain_id, '====')
+            break
+
+
+# for each chainId, get proposals
+for chain_id in tally_orgs_dict.keys():
+    print('getting proposals for chain', chain_id)
+
+    chain_out_path = f'{OUTPUT_PATH}/{chain_id}'
+    if not os.path.exists(chain_out_path):
+        os.mkdir(chain_out_path)
+    get_proposals_for_chain(chain_id)
