@@ -24,8 +24,8 @@ df = df[df['platformType'] == 'Snapshot']
 
 # epoch from a year ago
 now = datetime.datetime.now()
-year_ago = now - datetime.timedelta(days=365)
-YEAR_AGO_EPOCH = int(time.mktime(year_ago.timetuple()))
+YEAR_AGO_EPOCH = 1656021600  # 2022-06-24 00:00:00
+NOW_EPOCH =      1687557600  # 2023-06-24 00:00:00
 
 def generate_query(space, first, skip):
     base = """
