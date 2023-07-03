@@ -8,6 +8,7 @@ Each type creates an output file w columns:
 * `votes_count` (the number of unique votes in the deployment)
   - snapshot reports the sum of the votes in the deployment
   - tally reports the number of deployment token-holders who have ever voted
+  - for daostack, we report the total number of votes, including duplicates by the same voter
 * `proposals_count` (the number of proposals in the deployment)
 
 Types include:
