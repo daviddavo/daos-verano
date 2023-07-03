@@ -5,6 +5,10 @@ Each type creates an output file w columns:
 * `name` (may be nan)
 * `website` (may be nan)
 * `additional` (may contain website, social, etc. info, may be nan)
+* `votes_count` (the number of unique votes in the deployment)
+  - snapshot reports the sum of the votes in the deployment
+  - tally reports the number of deployment token-holders who have ever voted
+* `proposals_count` (the number of proposals in the deployment)
 
 Types include:
 
