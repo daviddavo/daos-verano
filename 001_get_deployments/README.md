@@ -10,7 +10,7 @@ Types include:
 
 * [Tally](https://www.tally.xyz/)
 * [Realms](https://realms.today/)
-* Snapshot
+* [Snapshot](https://snapshot.org/#/)
 * Aragon (via [DAO Analyzer](https://www.kaggle.com/datasets/daviddavo/dao-analyzer?resource=download))
 * DAO Stack (via [DAO Analyzer](https://www.kaggle.com/datasets/daviddavo/dao-analyzer?resource=download))
 * DAO Haus (via [DAO Analyzer](https://www.kaggle.com/datasets/daviddavo/dao-analyzer?resource=download))
@@ -21,7 +21,7 @@ Limitations:
 
 - only can download up to 15k deployments from Snapshot, though we pull the "most important" ones based on Snapshot's internal ranking
 
-DeepDAO platforms:
+DeepDAO platforms (by count, descending):
 
 - Snapshot (n=2404, included)
 - Aragon (n=84, included)
@@ -35,9 +35,13 @@ DeepDAO platforms:
 - **Colony (n=2, NOT included, n<10)**
 
 Messari platforms:
+- Tally
+- Snapshot
 - **Aave - on chain voting platform for one organization**
   - not clear if they have a way to pull proposals, etc?
 - **Uniswap - on chain voting platform for one organization**
+  - [governance portal](https://app.uniswap.org/#/vote)
+  - maybe we can get this info via the subgraph?
 - **Compound Finance - on chain voting platform for one organization**
-- Tally
-- Snapshot
+
+Note that the Messari data is much messier and includes forum discussions, Notion pages, etc.
