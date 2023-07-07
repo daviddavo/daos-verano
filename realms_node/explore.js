@@ -20,6 +20,30 @@ votes = await getGovernanceAccounts(
 )
 
 
+realms = getRealms(connection, programId); // n=2162
+// save to json file
+const fs = require('fs');
+fs.writeFileSync('realms.json', JSON.stringify(realms));
+
+
+
+// getAllProposals gets all governances and then all proposals for each governance
+proposals = await getAllProposals(
+    connection,
+    programId,
+    realmPubKey
+)
+
+// TODO: get all realms from getRealms, save as a json file
+// read in the json file
+// get all the proposals for each realm
+// save the proposals as a json file
+// then get all the votes for each proposal
+// save the votes as a json file
+
+
+
+
 
 
 
