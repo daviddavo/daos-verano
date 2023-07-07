@@ -16,7 +16,6 @@ Each type creates an output file w columns:
     2. performed a second pass for DAOs that initially errored or resulted in a response of zero proposals (n=0)
     3. removed DAOs for which we could not retrieve the no of proposals (likely they no longer exist), (n=220 removed, n=210 remaining)
     3. removed DAOs with less than 10 proposals (n=121 removed, n=89 remaining)
-    4. queried individual vote pages TODO: TBD
 
 Types include:
 
