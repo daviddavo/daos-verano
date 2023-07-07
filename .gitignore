@@ -1,3 +1,11 @@
 *.csv
 misc/*
 *.json
+
+# ignore realms_node except for .js files
+!realms_node/
+!realms_node/*.js
+!realms_node/package.json
+!realms_node/package-lock.json
+# ignore the node_modules directory
+realms_node/node_modules/
