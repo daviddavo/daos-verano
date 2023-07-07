@@ -6,7 +6,7 @@ Here we aim to combine all of the proposals from the platforms in step `001_get_
 * platform_deployment_id
 * proposal_id
 * author
-* date
+* date -- this should be as a pandas date, not as an epoch
 * votes_count
 * TBD
 
@@ -20,14 +20,25 @@ Aragon proposals are (confusingly) called "votes". We work with the `votes.csv` 
 
 The date we use is `startDate`.
 
-### Daohaus
+### Snapshot
+
+Downloaded from 23 June 2023 to 27 June 2023 using the window:
+
+```
+YEAR_AGO_EPOCH = 1656021600  # 2022-06-24 00:00:00
+NOW_EPOCH =      1687557600  # 2023-06-24 00:00:00
+```
+
+We use `created` as the date.
+
+### *Daohaus
 
 Daohaus has information on DAO Analyzer. We use this information directly.
 
-### Daostack
+### *Daostack
 
 Daostack has information on DAO Analyzer. We use this information directly.
 
-### Realms
-### Snapshot
-### Tally
+### *Realms
+
+### *Tally
