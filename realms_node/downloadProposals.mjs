@@ -40,19 +40,19 @@ for (let i = 0; i < realms.length; i++) {
         realmPubKey
     )
 
+    // set proposal.account.votingCompletedAt to a date string instead of a BigNumber
+    realmProposals.forEach(solanaGovernance => {
+        // console.log(solanaGovernance)
+        solanaGovernance.forEach(proposal => {
+            if (proposal.account.votingCompletedAt) {
+                proposal.account.votingCompletedAt = proposal.account.votingCompletedAt.toNumber();
+            }
+        });
+    });
+
     fs.writeFileSync(`${outputDir}/realm_proposals_${realmPubKey.toString()}.json`, JSON.stringify(realmProposals));
-    console.log('finished', i, 'of', realms.length, 'got', realmProposals.length, 'proposals');
-    // random sleep to avoid rate limiting
-    await new Promise(r => setTimeout(r, Math.random() * 1000))
+    console.log('finished', i, 'of', realms.length);
+    // random sleep to avoid rate limiting between 1 and 1.2 seconds
+    var timeout = Math.floor(Math.random() * 1000) + 200;
+    await new Promise(resolve => setTimeout(resolve, timeout));
 }
-
-
-// TODO: then get all the votes for each proposal
-// save the votes as a json file
-// votes = await getGovernanceAccounts(
-//     connection,
-//     programId,
-//     VoteRecord,
-//     [pubkeyFilter(1, proposalPk)] // filters
-// )
-
