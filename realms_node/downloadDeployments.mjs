@@ -1,6 +1,6 @@
 const splGovernanceModule = await import('@solana/spl-governance');
 import fs from 'fs';
-const { getRealms, getAllProposals } = splGovernanceModule;
+const { getRealms, getAllProposals, getGovernanceAccounts, pubkeyFilter, VoteRecord } = splGovernanceModule;
 
 const solanaWeb3 = await import('@solana/web3.js');
 const { Connection, PublicKey } = solanaWeb3;
@@ -11,9 +11,8 @@ const connection = new Connection(RPC_URL, 'recent');
 const programId = new PublicKey('GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw');
 
 // make an output directory based on the date
-// const date = new Date();
-// const outputDir = `output_${date.getFullYear()}_${date.getMonth()}_${date.getDate()}`;
-const outputDir = 'output_2023_6_10';
+const date = new Date();
+const outputDir = `output_${date.getFullYear()}_${date.getMonth()}_${date.getDate()}`;
 // make the output directory if it doesn't exist
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir);
