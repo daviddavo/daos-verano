@@ -1,6 +1,9 @@
 *.csv
 misc/*
 *.json
+**.npy
+**.pkl
+**.xlsx
 
 # ignore realms_node except for .js files
 !realms_node/
