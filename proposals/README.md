@@ -8,13 +8,12 @@ Here we aim to combine all of the proposals from the platforms in step `001_get_
 * author
 * date -- this should be as a pandas date, not as an epoch
 * votes_count
-* TBD
 
 ## Platform notes
 
 ### Aragon
 
-Aragon has information on DAO Analyzer. We use this information directly.
+Aragon has information on DAO Analyzer.
 
 Aragon proposals are (confusingly) called "votes". We work with the `votes.csv` file.
 
@@ -31,14 +30,20 @@ NOW_EPOCH =      1687557600  # 2023-06-24 00:00:00
 
 We use `created` as the date.
 
-### *Daohaus
+### Daohaus
 
-Daohaus has information on DAO Analyzer. We use this information directly.
+Daohaus has information on DAO Analyzer.
+`createdAt` date
 
 ### *Daostack
 
-Daostack has information on DAO Analyzer. We use this information directly.
+Daostack has information on DAO Analyzer.
 
-### *Realms
+### Realms
 
-### *Tally
+Using the JS SDK, see specific notes.
+
+### Tally
+
+Using the Tally API
+`timestamp` date
