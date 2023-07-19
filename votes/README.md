@@ -9,6 +9,7 @@ Let's get all of the votes.
 * voter -- the id of the person who made the vote
 * date -- this should be as a pandas date, not as an epoch
 * choice -- this should be a string as this is not always true/false
+* weight -- the vote weight
 
 ## Platform notes
 
@@ -38,6 +39,9 @@ Using `createdAt` date
 Using the JS SDK, downloaded on July 12 2023.
 
 We include [relinquished votes](https://github.com/solana-labs/solana-program-library/blob/master/governance/README.md)
+TODO: remove relinquished votes from the proposals table.
+
+We use voterWeight for the weights.
 
 `choice` is not present for all vals.
 
