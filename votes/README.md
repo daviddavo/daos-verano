@@ -39,7 +39,6 @@ Using `createdAt` date
 Using the JS SDK, downloaded on July 12 2023.
 
 We include [relinquished votes](https://github.com/solana-labs/solana-program-library/blob/master/governance/README.md)
-TODO: remove relinquished votes from the proposals table.
 
 We use voterWeight for the weights.
 
