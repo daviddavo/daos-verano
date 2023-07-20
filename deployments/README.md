@@ -50,3 +50,6 @@ Messari platforms:
 - **Compound Finance - on chain voting platform for one organization**
 
 Note that the Messari data is much messier and includes forum discussions, Notion pages, etc.
+
+
+Downloaded via DAO Analyzer July 20 2023

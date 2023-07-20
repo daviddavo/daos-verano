@@ -15,7 +15,7 @@ Let's get all of the votes.
 
 ### Aragon
 
-Aragon has information on DAO Analyzer. We used information as of July 12, 2023.
+Aragon has information on DAO Analyzer. We used information as of July 20, 2023.
 
 Aragon votes are (confusingly) called "casts". We work with the `casts.csv` file.
 
@@ -24,13 +24,13 @@ Using `createdAt` date.
 
 ### Daohaus
 
-Daohaus has information on DAO Analyzer. We used information as of July 12, 2023.
+Daohaus has information on DAO Analyzer. We used information as of July 20, 2023.
 Using `createdAt` date
 
 
 ### Daostack
 
-Daostack has information on DAO Analyzer. We used information as of July 12, 2023.
+Daostack has information on DAO Analyzer. We used information as of July 20, 2023.
 Using `createdAt` date
 
 

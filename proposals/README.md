@@ -13,7 +13,7 @@ Here we aim to combine all of the proposals from the platforms in step `001_get_
 
 ### Aragon
 
-Aragon has information on DAO Analyzer.
+Aragon has information on DAO Analyzer. Updates July 20, 2023.
 
 Aragon proposals are (confusingly) called "votes". We work with the `votes.csv` file.
 
@@ -32,12 +32,12 @@ We use `created` as the date.
 
 ### Daohaus
 
-Daohaus has information on DAO Analyzer.
+Daohaus has information on DAO Analyzer. Updates July 20, 2023.
 `createdAt` date
 
 ### *Daostack
 
-Daostack has information on DAO Analyzer.
+Daostack has information on DAO Analyzer. Updates July 20, 2023.
 
 ### Realms
 
