@@ -3,7 +3,7 @@ import json
 import time
 import datetime
 
-CHAIN_ID = 'eip155:10'
+CHAIN_ID = 'eip155:42161'
 VOTE_LIMIT = 3000
 
 TALLY_API_KEY = json.load(open('tally_api_key.json'))['key']
@@ -119,7 +119,6 @@ def get_large_proposal(proposal_id: str):
 #     json.dump(proposal, outfile)
 
 
-
 props_count_query = """query ProposalsWithVotes {
   proposals(chainId: "%s") {
     id
@@ -145,6 +144,11 @@ def get_query_results(limit, offset):
             time.sleep(5)
     data = response.json()
     proposals = data['data']['proposals']
+    for proposal in proposals:
+        if proposal['votes'] == None:
+            print('             NONE VOTES', proposal['id'], datetime.datetime.now())
+        else:
+            print('         proposal', proposal['id'], 'votes', len(proposal['votes']), datetime.datetime.now())
     print('    done', CHAIN_ID, offset, '-', limit+offset, response.status_code, datetime.datetime.now())
     if len(proposals) < limit:
         print('    reached limit', CHAIN_ID, offset, response.status_code, datetime.datetime.now())
@@ -155,33 +159,13 @@ first_pass_proposals = []
 
 print('starting', CHAIN_ID, datetime.datetime.now())
 
-# get proposals in chunks of 30; there are 252 proposals
-for offset in range(0, len(proposals), 30):
-    result = get_query_results(30, offset)
-    first_pass_proposals.append(result)
+# get proposals in chunks of 20; there are 252 proposals
+for offset in range(0, len(proposals), 20):
+    result = get_query_results(20, offset)
+    first_pass_proposals.extend(result)
 
 # save first pass proposals
 with open(CHAIN_ID + '/first_pass_proposals.json', 'w') as outfile:
     json.dump(first_pass_proposals, outfile)
 
 import pdb; pdb.set_trace()
-
-# big_proposals = []
-# for i, proposals in enumerate(first_pass_proposals):
-#     for proposal in proposals:
-#         if proposal.get('votes') is not None and len(proposal.get('votes')) == VOTE_LIMIT:
-#             print(i, proposal['id'])
-#             big_proposals.append(proposal)
-#             # remove from first_pass_proposals
-#             first_pass_proposals[i] = None
-
-# print(big_proposals)
-# import pdb; pdb.set_trace()
-
-# for proposal in big_proposals:
-#     proposal_id = proposal['id']
-#     # get big proposal
-
-
-# all_proposals = first_pass_proposals + big_proposals
-
