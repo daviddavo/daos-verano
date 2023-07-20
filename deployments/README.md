@@ -7,7 +7,6 @@ Each type creates an output file w columns:
 * `additional` (may contain website, social, etc. info, may be nan)
 * `votes_count` (the number of unique votes in the deployment)
   - snapshot reports the sum of the votes in the deployment
-  - tally reports the number of deployment token-holders who have ever voted
   - for daostack, aragon, and dao haus we report the total number of votes, including duplicates by the same voter
 * `proposals_count` (the number of proposals in the deployment)
   - used Realms JS SDK
