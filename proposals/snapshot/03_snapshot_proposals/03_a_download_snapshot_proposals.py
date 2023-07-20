@@ -30,7 +30,7 @@ NOW_EPOCH =      1687557600  # 2023-06-24 00:00:00
 def generate_query(space, first, skip):
     base = """
         query Proposals {
-         proposals(where: {space: "%s", created_gte: %s}, first: %s, skip: %s, orderDirection: desc, orderBy: "created") {
+         proposals(where: {space: "%s"}, first: %s, skip: %s, orderDirection: desc, orderBy: "created") {
             id
             ipfs
             author

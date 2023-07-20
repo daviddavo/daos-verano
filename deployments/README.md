@@ -24,7 +24,8 @@ TODO: explore viability of aave, uniswap and compound finance
 
 Limitations:
 
-- only can download up to 15k deployments from Snapshot, though we pull the "most important" ones based on Snapshot's internal ranking
+- ~~only can download up to 15k deployments from Snapshot, though we pull the "most important" ones based on Snapshot's internal ranking~~
+**as of July 20, this is no longer the case, we've been able to download more**
 
 DeepDAO platforms (by count, descending):
 
