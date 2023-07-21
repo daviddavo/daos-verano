@@ -4,6 +4,7 @@ misc/*
 **.npy
 **.pkl
 **.xlsx
+**.txt
 
 # ignore realms_node except for .js files
 !realms_node/
