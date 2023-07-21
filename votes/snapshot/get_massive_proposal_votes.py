@@ -1,17 +1,10 @@
-# %%
-import pickle
-large_proposals_and_votes = pickle.load(open('large_proposals_and_votes.pkl', 'rb'))
-large_proposals_and_votes
+"""
+This is a custom script to handle this massive proposal:
+https://snapshot.org/#/linea-build.eth/proposal/0xda4f201a37ea08cf1892418e7b9e88f5687a68dbdc96c3ab22abaa1c7244648e
+"""
 
-# %%
-# min. no. of query groups
-sum([x[1] for x in large_proposals_and_votes]) / 5000
+MASSIVE_PROPOSAL_ID = '0xda4f201a37ea08cf1892418e7b9e88f5687a68dbdc96c3ab22abaa1c7244648e'
 
-# %%
-# 2700 queries just for this one proposal!
-2765849 / 1000
-
-# %%
 def make_query(proposal_id: str, created_gte: int) -> str:
     """
     * platform
@@ -42,9 +35,9 @@ def make_query(proposal_id: str, created_gte: int) -> str:
     """
     return base % (proposal_id, created_gte)
 
-# %%
 import requests
 import backoff
+
 URL = "https://hub.snapshot.org/graphql"
 
 # make custom SnapshotException
@@ -70,15 +63,12 @@ def query_snapshot(query):
     # print(data)
     return data['data']['votes']
 
-# %%
 # mkdir large_proposal_votes_2023_07_21 if it doesn't exist
 import os
 os.makedirs('large_proposal_votes_2023_07_21', exist_ok=True)
 # make child dirs for each large_proposals_and_votes item if they don't exist
-for proposal_id, _ in large_proposals_and_votes:
-    os.makedirs(f'large_proposal_votes_2023_07_21/{proposal_id}', exist_ok=True)
+os.makedirs(f'large_proposal_votes_2023_07_21/{MASSIVE_PROPOSAL_ID}', exist_ok=True)
 
-# %%
 import json
 import glob
 import datetime
@@ -96,9 +86,15 @@ def process_large_proposal(proposal_id):
     
     finished_indicator_filename = f'large_proposal_votes_2023_07_21/{proposal_id}/finished.txt'
     if os.path.exists(finished_indicator_filename):
+        with open('download.log', 'a+') as f:
+            to_write = f'already finished {proposal_id} {datetime.datetime.now()}\n'
+            f.write(to_write)
         print('already finished', proposal_id)
         return 0
 
+    with open('download.log', 'a+') as f:
+        to_write = f'starting from {proposal_id} {next_timestamp} {datetime.datetime.now()}\n'
+        f.write(to_write)
     print('starting from', proposal_id, next_timestamp, datetime.datetime.now())
 
     # pagination logic
@@ -114,6 +110,9 @@ def process_large_proposal(proposal_id):
             timestamp = votes[-1]['created']
         query = make_query(proposal_id, timestamp)
         votes = query_snapshot(query)
+        with open('download.log', 'a+') as f:
+            to_write = f'got {len(votes)} votes for {proposal_id} {timestamp} {datetime.datetime.now()}\n'
+            f.write(to_write)
         print('got', len(votes), 'votes for', proposal_id, timestamp, datetime.datetime.now())
         # save votes to file in the output dir
         with open(filename, 'w') as f:
@@ -128,13 +127,4 @@ def process_large_proposal(proposal_id):
                 f.write(len(votes))
     return 0
 
-# %%
-from concurrent.futures import ThreadPoolExecutor
-
-with ThreadPoolExecutor(max_workers=1) as executor:
-    futures = [executor.submit(process_large_proposal, proposal_id) for proposal_id, _ in large_proposals_and_votes]
-
-    # Wait for all threads to complete
-    votes_processed_list = [future.result() for future in futures]
-
-
+process_large_proposal(MASSIVE_PROPOSAL_ID)
