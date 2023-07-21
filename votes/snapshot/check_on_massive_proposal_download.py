@@ -1,4 +1,5 @@
 # glob get files in large_proposal_votes_2023_07_21
+
 import glob
 all_files = glob.glob("large_proposal_votes_2023_07_21/*/*.json")
 
