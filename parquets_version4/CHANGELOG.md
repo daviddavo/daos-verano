@@ -1,3 +1,11 @@
+<!-- TODO: make proposal date a date, not a string! -->
+# Version 4 (TKTKTKTKTK)
+
+- Update proposal `votes_count` values to count from `votes.parquet`, correlation between old and new:           `0.99998`
+- Update deployment `votes_count` values to count from `votes.parquet`, correlation between old and new:         `0.99868`
+- Update deployment `proposals_count` values to count from `proposals.parquet`, correlation between old and new: `0.99996`
+- No changes to `votes.parquet`
+
 # Version 3 (2023-07-26)
 - Add UUIDs to deployments, proposals, and votes
 - Update deployment schema:
