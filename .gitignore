@@ -18,3 +18,5 @@ realms_node/node_modules/
 DATA
 
 **.parquet
+
+**/.DS_Store

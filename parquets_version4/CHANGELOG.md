@@ -1,5 +1,5 @@
 <!-- TODO: make proposal date a date, not a string! -->
-# Version 4 (TKTKTKTKTK)
+# Version 4 (2023-07-26)
 
 - Update proposal `votes_count` values to count from `votes.parquet`, correlation between old and new:           `0.99998`
 - Update deployment `votes_count` values to count from `votes.parquet`, correlation between old and new:         `0.99868`

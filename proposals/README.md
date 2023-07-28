@@ -1,5 +1,3 @@
-Here we aim to combine all of the proposals from the platforms in step `001_get_deployments`.
-
 ## Schema
 
 * platform
