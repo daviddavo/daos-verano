@@ -30,10 +30,7 @@ G41fmJzd29v7Qmdi8ZyTBBYa98ghh3cwHBTexqCG1PQJ      1
 bqTjmeob6XTdfh12px2fZq4aJMpfSY1R1nHZ44VgVZD       1
 ```
 2. Save this list to `program_ids.txt`
-3. Download all deployments for each programId (many just have one) (n=2287)
+3. Download all deployments for each `programId` (many just have one) (n=2287)
 4. Download all proposals for each deployment
-
-
-
-
-lastly, we shape the vote data into the desired csv format again in python.
+5. Download all votes for each proposal
+6. Format data in python

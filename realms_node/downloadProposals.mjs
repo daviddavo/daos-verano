@@ -62,6 +62,10 @@ const getProposalsForRealm = async (
         });
     });
 
+    // write to file
+    fs.writeFileSync(filename, JSON.stringify(realmProposals));
+
+
     console.log('  finished', programId.toString(), realmPubKey.toString());
 }
 
