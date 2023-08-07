@@ -49,15 +49,17 @@ for (let i = 0; i < proposalFiles.length; i++) {
                 process.exit(1);
             }
 
-            allProposals.push({
-                pubkeyString: proposal.pubkey,
-                programString: proposal.owner,
-                realmIdString: realmId
-            })
+            if (proposal.account.votingCompletedAt != null) {
+                allProposals.push({
+                    pubkeyString: proposal.pubkey,
+                    programString: proposal.owner,
+                    realmIdString: realmId
+                })
+            }
         }
     }
 }
-console.log('allProposals', allProposals.length);
+console.log('allProposals with non null votingCompletedAt', allProposals.length);
 
 const getVotesForProposal = async (
     connection,

@@ -35,8 +35,6 @@ bqTjmeob6XTdfh12px2fZq4aJMpfSY1R1nHZ44VgVZD       1
 5. Download all votes for each proposal
 6. Format data in python
 
-
-
 ## Docker
 
 The `downloadvotes.Dockerfile` file is configured to use Docker to download
