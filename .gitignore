@@ -3,8 +3,11 @@ misc/*
 *.json
 **.npy
 **.pkl
+**pickle
 **.xlsx
 **.txt
+**.h5
+**tar.gz
 
 # ignore realms_node except for .js files
 !realms_node/
