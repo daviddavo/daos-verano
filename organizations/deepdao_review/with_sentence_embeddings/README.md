@@ -8,7 +8,7 @@ calculate the similarity for each pair.
 
 ## Data pipeline
 
-1. `generate_pairs_and_embeddings.ipynb`
-2. `add_row_ids.ipynb`
-3. `add_empty_similarity_column.ipynb`
-4. `generate_similarity.ipynb` (this is the same as `to_run_on_server.py`)
+1. `generate_pairs_and_embeddings`
+2. `add_row_ids`
+3. `add_empty_similarity_column`
+4. `generate_similarity`

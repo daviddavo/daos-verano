@@ -7,7 +7,8 @@ misc/*
 **.xlsx
 **.txt
 **.h5
-**tar.gz
+**.tar.gz
+**.log
 
 # ignore realms_node except for .js files
 !realms_node/
