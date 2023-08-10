@@ -3,7 +3,8 @@ import logging
 # import make_pairs_and_embeddings
 # import add_row_ids
 # import add_empty_similarity_column
-import generate_similarity
+# import generate_similarity
+import concatenate_parquets
 
 # set up logging
 logging.basicConfig(
@@ -32,6 +33,10 @@ if __name__ == '__main__':
 
     # 4. `generate_similarity` (this is the same as `to_run_on_server.py`)
     # logging.info("calling generate_similarity.main()")
-    generate_similarity.main()
+    # generate_similarity.main()
+
+    # 5. `concatenate_parquets`
+    logging.info("calling concatenate_parquets.main()")
+    concatenate_parquets.main()
 
     logging.info("done")
