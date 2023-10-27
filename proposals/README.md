@@ -6,6 +6,8 @@
 * author
 * date -- this should be as a pandas date, not as an epoch
 * votes_count
+* title
+* description
 
 ## Platform notes
 
