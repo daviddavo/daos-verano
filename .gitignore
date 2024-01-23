@@ -9,6 +9,7 @@ misc/*
 **.h5
 **.tar.gz
 **.log
+.cache.sqlite
 
 # ignore realms_node except for .js files
 !realms_node/
@@ -23,4 +24,7 @@ DATA
 
 **.parquet
 
-**/.DS_Store
+**/.DS_Store,
+
+# python files
+venv/
